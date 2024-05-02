@@ -2,12 +2,14 @@
     font-family: "M PLUS 1p", sans-serif;
     font-weight: 400;
     font-style: normal;
+    font-size: 28px;
   }
   
-  .m-plus-1p-medium {
+  .m-plus-1p-medium, h1 {
     font-family: "M PLUS 1p", sans-serif;
     font-weight: 500;
     font-style: normal;
+    font-size: 48px;
   }
   
   .m-plus-1p-bold {
