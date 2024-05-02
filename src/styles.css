@@ -1,0 +1,70 @@
+.m-plus-1p-regular {
+    font-family: "M PLUS 1p", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .m-plus-1p-medium {
+    font-family: "M PLUS 1p", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  .m-plus-1p-bold {
+    font-family: "M PLUS 1p", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "M PLUS 1p";
+}
+
+.html {
+    display: block;
+}
+
+
+.login-page {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 130px;
+}
+
+.left-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 48px;
+    width: 100%;
+}
+
+input {
+    margin-top: 14px;
+    width: 343px;
+    height: 52px;
+    border-radius: 12px;
+    padding: 13px 16px;
+    gap: 8px;
+}
+
+.register {
+    margin-top: 48px;
+}
