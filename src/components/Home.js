@@ -1,6 +1,8 @@
 import React from 'react';
 import {useForm} from 'react-hook-form'
 import lorby from '../images/Image.svg'
+import { Link } from 'react-router-dom';
+
 
 const Home = () => {
     const {
@@ -27,13 +29,15 @@ const Home = () => {
                 <h1>Вэлком бэк!</h1>
                 <label>
                     <input type="text" placeholder='Введи туда-сюда логин' {...register('firstName', {required: "Неверный логин или пароль",})}/>
-                    <input type="text" placeholder='Пароль (тоже введи)' {...register('password', {required: "Неверный логин или пароль",})}/>
+                    <input type="text" placeholder='Пароль (тоже введи)' {...register('password', {required: "Неверный логин или пароль",})}  />
                 </label>
                 <div>
                     {errors?.firstName && errors?.password && <p>{errors?.firstName?.message || "Error!"}</p>}
                 </div>
-                <input type="submit" value="Войти"/>
-                <p className='register'>У меня еще нет аккаунта</p>
+                <input className="submit" type="submit" value="Войти"/>
+                <Link to={`/registration`} style={{ textDecoration: 'none', color: 'black' }} >
+                    <p className='register'>У меня еще нет аккаунта</p>
+                </Link>
             </form>
         </section>
     );
