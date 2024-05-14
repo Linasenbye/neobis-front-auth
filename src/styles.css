@@ -54,7 +54,6 @@ label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 48px;
     width: 100%;
 }
 
@@ -85,4 +84,46 @@ ul {
 
 .back {
     margin-top: 24px;
+}
+
+.pwdnote {
+    color: red;
+}
+
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    color: black;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+    color: black;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: green;
+}
+
+.invalid {
+    color: red
+}
+
+#confirmnote {
+    font: Mplus 1p;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    color: red;
 }
