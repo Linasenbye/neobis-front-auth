@@ -3,6 +3,7 @@
     font-weight: 400;
     font-style: normal;
     font-size: 28px;
+    align-text: center ;
   }
   
   .m-plus-1p-medium, h1 {
@@ -30,8 +31,76 @@
     display: block;
 }
 
+.home {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 80px;
+    gap: 40px;
+}
 
-.login-page, .registration-page {
+.home-title {
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 53.46px;
+    text-align: center;
+    color: #212121
+}
+
+.home-text {
+    font-size: 20px;
+    line-height: 29.7px;
+    text-align: center;
+    color: #212121;
+}
+
+.logout-btn {
+    font-size: 16px;
+    text-align: center;
+    line-height: 24px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+}
+.login-btn {
+    background-color: #292929;
+    color: #fff;
+    min-width: 311px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 24px;
+    text-align: center;
+}
+
+.question {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 29.7px;
+}
+
+.home-modal-text {
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 23.76px;
+}
+.login-page, .registration-page, .confirm {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -126,4 +195,116 @@ ul {
     font-size: 12px;
     line-height: 20px;
     color: red;
+}
+
+.confirm-wrapper {
+    width: 421px;
+    height: 404px; 
+    border: 1px solid green;
+    
+}
+
+.return-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    line-height: 23.76px;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    color: #545454;
+    cursor: pointer;
+    position: fixed;
+    top: 5%;
+}
+
+.arrow {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #f8f8f8;
+    padding: 5px;
+}
+.link {
+    text-decoration: none;
+}
+.confirm-text {
+    height: 404px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 48px;
+}
+
+.grey-text {
+   
+    max-width: 313px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 29.7px;
+    text-align: center;
+    color: #767676;
+
+}
+span{
+    color: #212121;
+}
+
+.resend {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px; 
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+
+h3 {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 29.7px;
+}
+
+
+.modal-text{
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 23.76px;
+    color: #767676;
+}
+
+.ok-btn {
+    background-color: #292929;
+    color: #fff;
+    min-width: 311px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    
+}
+.icon{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.pwd-input {
+    position: relative;
+    width: 343px;
+}
+
+
+.pwd-input .icon {
+    position: absolute;
+    right: 15px; 
+    top: 65%;
+    transform: translateY(-50%);
 }

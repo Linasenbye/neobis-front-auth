@@ -1,15 +1,23 @@
 import {useRef, useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import axios from '../api/axios';
+
 import Tutor from '../components/Tutor';
-import Letter from '../components/Letter';
+import show from "../images/show.svg"
+import hide from "../images/hide.svg"
+
+
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { register } from '../store/auth';
 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,15}$/;
 
-const REGISTER_URL = "/register"
+
 
 const Registration = () => {
 
@@ -34,6 +42,20 @@ const Registration = () => {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false)
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [showPwd, setShowPwd] = useState(false);
+    const [showMatchPwd, setShowMatchPwd] = useState(false);
+
+    const toggleShowPwd = () => {
+        setShowPwd(!showPwd);
+      };
+    
+    const toggleShowMatchPwd = () => {
+        setShowMatchPwd(!showMatchPwd);
+      };
 
     useEffect(() => {
         userRef.current.focus();
@@ -67,42 +89,20 @@ const Registration = () => {
         setErrMsg('');
     }, [email, user, pwd, matchPwd])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        
-            try {
-                const response = await axios.post(REGISTER_URL,
-                    JSON.stringify({ email, username : user,password : pwd, confirmPassword : matchPwd }),
-                    {
-                        headers: { 'Content-Type': 'application/json' },
-                        withCredentials: true
-                    }
-                );
-                console.log(response?.data);
-                console.log(response?.accessToken);
-                console.log(JSON.stringify(response))
-                setSuccess(true);
-               
-                setEmail('');
-                setUser('');
-                setPwd('');
-                setMatchPwd('');
-            } catch (err) {
-                if (!err?.response) {
-                    setErrMsg('No Server Response');
-                } else if (err.response?.status === 409) {
-                    setErrMsg('Username Taken');
-                } else {
-                    setErrMsg('Registration Failed')
-                }
-                errRef.current.focus();
-            }
-        }
+        dispatch(register({ email, username : user,password : pwd, confirmPassword : matchPwd })).then(() => {
+          setSuccess(true); 
+        }).catch((error) => {
+            setErrMsg(error.message); 
+            setSuccess(false);
+        });
+    };
 
     return (
         <>
         {success ? (
-            <Letter/>
+            navigate('/confirm')
         ) : (
         <section className='registration-page'>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
@@ -110,7 +110,7 @@ const Registration = () => {
             <form className = "right-side" onSubmit={handleSubmit}>
                 <h1>Создать аккаунт Lorby</h1>
                 <label>
-                    <label htmlFor='email'></label>
+                    <label htmlFor='email'>
                     <input 
                         type="email" 
                         id="email"
@@ -131,7 +131,8 @@ const Registration = () => {
                             <li>Letters, numbers, underscores, hyphens allowed.</li>
                         </ul>
                     </p>
-                    <label htmlFor='username'></label>
+                    </label>
+                    <label htmlFor='username'>
                     <input 
                         type="text" 
                         id="username"
@@ -152,9 +153,10 @@ const Registration = () => {
                             <li>Letters, numbers, underscores, hyphens allowed.</li>
                         </ul>
                     </p>
-                    <label htmlFor='password'></label>
+                    </label>
+                    <label htmlFor='password' className='pwd-input'>
                     <input 
-                        type="password"
+                        type={showPwd ? 'text' : 'password'}
                         placeholder='Создай пароль'
                         id="password"
                         onChange={(e) => setPwd(e.target.value)}
@@ -164,6 +166,10 @@ const Registration = () => {
                         aria-describedby="pwdnote"
                         onFocus={() => setPwdFocus(true)}
                         onBlur={() => setPwdFocus(false)}/>
+                    <button className="icon" onClick={toggleShowPwd} type="button">
+                        <img src={showPwd ? hide : show}/>
+                    </button>
+                    </label>
                         
                     <ul id='required'>
                         <li className={pwd.length >= 8 && pwd.length <= 15 ? 'valid' : 'invalid'}>
@@ -183,9 +189,9 @@ const Registration = () => {
                             {/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(pwd) ? '✅' : '❌'}
                         </li>
                     </ul>
-                    <label htmlFor="confirm_pwd"></label>
+                    <label htmlFor="confirm_pwd" className='pwd-input'>
                     <input 
-                        type="password"
+                        type={showMatchPwd ? 'text' : 'password'}
                         placeholder='Повтори пароль' 
                         id="confirm_pwd"
                         onChange={(e) => setMatchPwd(e.target.value)}
@@ -196,11 +202,16 @@ const Registration = () => {
                         onFocus={() => setMatchFocus(true)}
                         onBlur={() => setMatchFocus(false)}
                         />
+                    <button className="icon" onClick={toggleShowMatchPwd} type="button">
+                        <img src={showMatchPwd ? hide : show}/>
+                    </button>
+                    </label>
                     <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
                         Пароли не совпадают
                     </p>
+                    </label>
         
-                </label>
+                
 
                 <input type="submit" value="Далее" disabled={!validName || !validPwd || !validMatch ? true : false}/>
                 
