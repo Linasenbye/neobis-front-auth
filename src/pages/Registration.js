@@ -91,7 +91,7 @@ const Registration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(register({ email, username : user,password : pwd, confirmPassword : matchPwd })).then(() => {
+        dispatch(register({ email, user,pwd, matchPwd })).then(() => {
           setSuccess(true); 
         }).catch((error) => {
             setErrMsg(error.message); 

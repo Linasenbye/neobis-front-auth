@@ -14,13 +14,13 @@ const initialState = {
 
 export const register = createAsyncThunk(
   "auth/register",
-  async ({ email, username: user, password: pwd, confirmPassword: matchPwd }, thunkAPI) => {
+  async ({ email, username, password, confirmPassword }, thunkAPI) => {
     try {
       const response = await axios.post("http://165.22.72.60:8080/api/user/register", {
         email,
-        user,
-        pwd,
-        matchPwd,
+        username,
+        password,
+        confirmPassword,
       });
       thunkAPI.dispatch(setEmail(email)); 
       return response.data;
@@ -32,7 +32,7 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "auth/login",
-  async ({ username, password }, thunkAPI) => {
+  async ({ username, password}, thunkAPI) => {
     try {
       const response = await axios.post("http://165.22.72.60:8080/api/user/login", {
         username,
