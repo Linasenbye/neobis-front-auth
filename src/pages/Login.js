@@ -13,8 +13,8 @@ const Home = () => {
     const userRef = useRef();
     const errRef = useRef();
 
-    const [user, setUser] = useState('');
-    const [pwd, setPwd] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
@@ -29,24 +29,24 @@ const Home = () => {
 
     useEffect(() => {
         setErrMsg('');
-    }, [user, pwd])
+    }, [email, password])
 
 
     const handleSubmit = async (values) => {
 
-        const { user, pwd } = values;
+        const { email, password } = values;
       
         try {
-          const response = await dispatch(login({ user, pwd }));
+          const response = await dispatch(login({ email, password }));
           console.log(response);
           
           if (response.payload) {
-            setUser('');
+            setEmail('');
             setPwd('');
             setSuccess(true);
             
           } else {
-            console.log('Invalid username or password');
+            console.log('Invalid email or password');
           }
         } catch (err) {
             if (!err?.response) {
@@ -80,8 +80,8 @@ const Home = () => {
                             id="username"
                             ref={userRef}
                             autoComplete="off"
-                            onChange={(e) => setUser(e.target.value)}
-                            value={user}
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
                             required
                         />
                     <label htmlFor="password"></label>
@@ -90,7 +90,7 @@ const Home = () => {
                             placeholder='Пароль (тоже введи)'
                             id="password"
                             onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
+                            value={password}
                             required
                         /> 
                 </label>

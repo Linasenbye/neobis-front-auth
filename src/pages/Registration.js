@@ -28,15 +28,15 @@ const Registration = () => {
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
 
-    const [user, setUser] = useState('');
+    const [username, setUser] = useState('');
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
 
-    const [pwd, setPwd] = useState('');
+    const [password, setPwd] = useState('');
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
 
-    const [matchPwd, setMatchPwd] = useState('');
+    const [confirmPassword, setMatchPwd] = useState('');
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
@@ -70,30 +70,30 @@ const Registration = () => {
     }, [email])
 
     useEffect(() => {
-        const result = USER_REGEX.test(user);
+        const result = USER_REGEX.test(username);
         console.log(result);
-        console.log(user);
+        console.log(username);
         setValidName(result);
-    }, [user])
+    }, [username])
 
     useEffect(() => {
-        const result = PWD_REGEX.test(pwd);
+        const result = PWD_REGEX.test(password);
         console.log(result);
-        console.log(pwd);
+        console.log(password);
         setValidPwd(result);
-        const match = pwd == matchPwd;
+        const match = password == confirmPassword;
         setValidMatch(match);
-    }, [pwd, matchPwd])
+    }, [password, confirmPassword])
 
     useEffect(() => {
         setErrMsg('');
-    }, [email, user, pwd, matchPwd])
+    }, [email, username, password, confirmPassword])
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(register({ email, user,pwd, matchPwd })).then(() => {
+        dispatch(register({ email, username, password , confirmPassword })).then(() => {
           setSuccess(true); 
-        }).catch((error) => {
+        }) .catch((error) => {
             setErrMsg(error.message); 
             setSuccess(false);
         });
@@ -146,7 +146,7 @@ const Registration = () => {
                         onFocus={() => setUserFocus(true)}
                         onBlur={() => setUserFocus(false)}
                     />
-                    <p id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen"}>
+                    <p id="uidnote" className={userFocus && username && !validName ? "instructions" : "offscreen"}>
                         <ul id='required'>
                             <li>4 to 24 characters.</li>
                             <li>Must begin with a letter.</li>
@@ -160,7 +160,7 @@ const Registration = () => {
                         placeholder='Создай пароль'
                         id="password"
                         onChange={(e) => setPwd(e.target.value)}
-                        value={pwd}
+                        value={password}
                         required
                         aria-invalid={validPwd ? "false" : "true"}
                         aria-describedby="pwdnote"
@@ -172,21 +172,21 @@ const Registration = () => {
                     </label>
                         
                     <ul id='required'>
-                        <li className={pwd.length >= 8 && pwd.length <= 15 ? 'valid' : 'invalid'}>
+                        <li className={password.length >= 8 && password.length <= 15 ? 'valid' : 'invalid'}>
                             {'От 8 до 15 символов '}
-                            {pwd.length >= 8 && pwd.length <= 15 ? '✅' : '❌'}
+                            {password.length >= 8 && password.length <= 15 ? '✅' : '❌'}
                         </li>
-                        <li className={/[a-z]/.test(pwd) && /[A-Z]/.test(pwd) ? 'valid' : 'invalid'}>
+                        <li className={/[a-z]/.test(password) && /[A-Z]/.test(password) ? 'valid' : 'invalid'}>
                             {'Строчные и прописные буквы '}
-                            {/[a-z]/.test(pwd) && /[A-Z]/.test(pwd) ? '✅' : '❌'}
+                            {/[a-z]/.test(password) && /[A-Z]/.test(password) ? '✅' : '❌'}
                         </li>
-                        <li className={/\d/.test(pwd) ? 'valid' : 'invalid'}>
+                        <li className={/\d/.test(password) ? 'valid' : 'invalid'}>
                             {'Минимум 1 цифра '}
-                            {/\d/.test(pwd) ? '✅' : '❌'}
+                            {/\d/.test(password) ? '✅' : '❌'}
                         </li>
-                        <li className={/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(pwd) ? 'valid' : 'invalid'}>
+                        <li className={/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password) ? 'valid' : 'invalid'}>
                             {'Минимум 1 спецсимвол (!, ", #, $...)' }
-                            {/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(pwd) ? '✅' : '❌'}
+                            {/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password) ? '✅' : '❌'}
                         </li>
                     </ul>
                     <label htmlFor="confirm_pwd" className='pwd-input'>
@@ -195,7 +195,7 @@ const Registration = () => {
                         placeholder='Повтори пароль' 
                         id="confirm_pwd"
                         onChange={(e) => setMatchPwd(e.target.value)}
-                        value={matchPwd}
+                        value={confirmPassword}
                         required
                         aria-invalid={validMatch ? "false" : "true"}
                         aria-describedby="confirmnote"
